@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using RestauranteMaMonolitica.Web.Data.Models;
 using RestaurantePro.Factura.Domain.Entities;
 using RestaurantePro.Factura.Domain.Interface;
@@ -45,8 +46,8 @@ namespace RestaurantePro.Factura.Persistance.Repositories
             {
                 throw new ArgumentNullException("El curso que desea Actualizar no se Encuentra Registrado");
             }
-            
-            facturaRemove .id = entity.id;
+            _context.Entry(entity).State = EntityState.Deleted;
+
             facturaRemove.deleted =entity.deleted;
             facturaRemove.delete_date = entity.delete_date;
             facturaRemove.delete_user = entity.delete_user;

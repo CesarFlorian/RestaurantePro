@@ -119,18 +119,23 @@ namespace RestaurantePro.Factura.Application.Services
                     return result;
                 }
 
-                Domain.Entities.Factura factura = new Domain.Entities.Factura()
+                var factura = FacturaRepository.GetEntityById(facturaRemove.id);
+                if (factura == null)
                 {
-                    id= facturaRemove.id,
-                    deleted= facturaRemove.deleted,
-                    delete_date = facturaRemove.delete_date,
-                    delete_user = facturaRemove.delete_user,
-                    
-                };
-
-                this.FacturaRepository.Remove(factura);
+                    result.Success = false;
+                    result.Message = "La Factura no existe.";
+                    return result;
+                }
 
                 
+                factura.deleted = facturaRemove.deleted;
+                factura.delete_date = facturaRemove.delete_date;
+                factura.delete_user = facturaRemove.delete_user;
+
+                FacturaRepository.Remove(factura);
+
+                result.Success = true;
+                result.Message = "Factura eliminada con éxito.";
             }
             catch (Exception ex)
             {
@@ -138,11 +143,11 @@ namespace RestaurantePro.Factura.Application.Services
                 result.Message = "Ocurrió un error eliminando los datos de la Factura";
                 this.logger.LogError(result.Message, ex.ToString());
             }
-
             return result;
+
         }
 
-       public ServiceResult saveFactura(FacturaSaveDto facturaSave) 
+        public ServiceResult saveFactura(FacturaSaveDto facturaSave) 
         {
             ServiceResult result = new ServiceResult();
            
