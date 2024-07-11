@@ -7,7 +7,7 @@ namespace RestaurantePro.Factura.Application.Dtos
 
         public DateTime ChangeDate { get; set; }
 
-
+        
 
 
 

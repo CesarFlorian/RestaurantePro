@@ -40,6 +40,17 @@ namespace RestaurantePro.Factura.Persistance.Repositories
 
         public void Remove(Domain.Entities.Factura entity)
         {
+            Domain.Entities.Factura facturaRemove = this.GetEntityById(entity.id);
+            if (facturaRemove == null)
+            {
+                throw new ArgumentNullException("El curso que desea Actualizar no se Encuentra Registrado");
+            }
+            
+            facturaRemove .id = entity.id;
+            facturaRemove.deleted =entity.deleted;
+            facturaRemove.delete_date = entity.delete_date;
+            facturaRemove.delete_user = entity.delete_user;
+
             _context.Factura.Remove(entity);
             _context.SaveChanges();
         }
@@ -54,8 +65,32 @@ namespace RestaurantePro.Factura.Persistance.Repositories
 
         public void Update(Domain.Entities.Factura entity)
         {
-            _context.Factura.Update(entity);
-            _context.SaveChanges();
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("la entidad esta nula");
+                }
+
+                Domain.Entities.Factura facturaToUpdate = this._context.Factura.Find(entity.id);
+                if (facturaToUpdate == null)
+                {
+                    throw new ArgumentNullException("El curso que desea Actualizar no se Encuentra Registrado");
+                }
+                 facturaToUpdate.Total = entity.Total;
+                 facturaToUpdate.Fecha = entity.Fecha;
+                 facturaToUpdate.modify_date = entity.modify_date;
+                 facturaToUpdate.modify_user = entity.modify_user;
+
+                _context.Factura.Update(facturaToUpdate);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) 
+            { 
+              throw ex;
+            }
+        }
+            
         }
     }
-}
+

@@ -6,7 +6,7 @@ namespace RestauranteMaMonolitica.Web.Data.Models
     {
 
         public decimal Total { get; set; }
-        public DateOnly Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
 
 

@@ -8,7 +8,7 @@ using RestaurantePro.Factura.Application.Dtos;
 using RestaurantePro.Factura.Application.Interfaces;
 using RestaurantePro.Factura.Domain.Interface;
 using System.Reflection.Metadata.Ecma335;
-namespace RestauranteMaMonolitica.Web.BL.Services
+namespace RestaurantePro.Factura.Application.Services
 {
     public class FacturaService : IFacturaService
     {
@@ -16,9 +16,9 @@ namespace RestauranteMaMonolitica.Web.BL.Services
         private readonly IFacturaRepository FacturaRepository;
         private readonly ILogger<FacturaService> logger;
 
-        public FacturaService (IFacturaRepository FacturaDb, ILogger<FacturaService> logger) 
+        public FacturaService (IFacturaRepository FacturaRepository, ILogger<FacturaService> logger) 
         { 
-             this.FacturaRepository = FacturaDb;
+             this.FacturaRepository = FacturaRepository;
              this.logger = logger;
         }
 
@@ -77,8 +77,21 @@ namespace RestauranteMaMonolitica.Web.BL.Services
                 {
                     result.Success = false;
                     result.Message = "La Factura no puede ser nula.";
-                    return result;
                 }
+
+                RestaurantePro.Factura.Domain.Entities.Factura factura = new RestaurantePro.Factura.Domain.Entities.Factura()
+                {
+                    id = facturaUpdate.id,
+                    Total = facturaUpdate.Total,
+                    Fecha = facturaUpdate.Fecha,
+                    modify_date = facturaUpdate.modify_date,
+                    modify_user = facturaUpdate.modify_user,   
+
+                };
+
+                    this.FacturaRepository.Update(factura);
+                         
+
 
 
             }
@@ -105,6 +118,17 @@ namespace RestauranteMaMonolitica.Web.BL.Services
                     result.Message = "La Factura no puede ser nula.";
                     return result;
                 }
+
+                Domain.Entities.Factura factura = new Domain.Entities.Factura()
+                {
+                    id= facturaRemove.id,
+                    deleted= facturaRemove.deleted,
+                    delete_date = facturaRemove.delete_date,
+                    delete_user = facturaRemove.delete_user,
+                    
+                };
+
+                this.FacturaRepository.Remove(factura);
 
                 
             }

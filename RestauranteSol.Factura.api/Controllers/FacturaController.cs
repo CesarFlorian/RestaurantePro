@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
+using RestaurantePro.Factura.Domain.Interface;
+using RestaurantePro.Factura.Application;
 using RestaurantePro.Factura.Application.Dtos;
 using RestaurantePro.Factura.Application.Interfaces;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RestauranteSol.Factura.api.Controllers
 {
@@ -9,105 +14,82 @@ namespace RestauranteSol.Factura.api.Controllers
     public class FacturaController : ControllerBase
     {
         private readonly IFacturaService facturaService;
-
         public FacturaController(IFacturaService facturaService)
         {
             this.facturaService = facturaService;
         }
 
-        [HttpGet]
-        [Route("GetFacturas")]
-        public IActionResult GetFacturas()
+        [HttpGet("GetFactura")]
+
+
+        public IActionResult Get()
         {
             var result = this.facturaService.GetFacturas();
-            if (result.Success)
+            if (result.Sucess)
             {
-                return Ok(result.Data);
+                return BadRequest(result);
             }
             else
-            {
-                return NotFound(result.Message);
-            }
+                return Ok(result);
+
         }
 
-        [HttpGet]
-        [Route("GetFacturaById/{id}")]
-        public IActionResult GetFacturaById(int id)
+
+        [HttpGet("GetFacturabyId")]
+        public IActionResult Get(int id)
         {
             var result = this.facturaService.GetFactura(id);
-            if (result.Success)
+            if (result.Sucess)
             {
-                return Ok(result.Data);
+                return BadRequest(result);
             }
             else
-            {
-                return NotFound(result.Message);
-            }
+                return Ok(result);
         }
 
-        
+
         [HttpPost("SaveFactura")]
-       
         public IActionResult Post([FromBody] FacturaSaveDto facturaSaveDto)
         {
-           
-        
+            facturaSaveDto.ChangeDate = DateTime.Now;
+            facturaSaveDto.ChangeUser = 1;
             var result = this.facturaService.saveFactura(facturaSaveDto);
-
-            if (!ModelState.IsValid)
+            if (result.Sucess)
             {
-                return BadRequest(ModelState);
-            }
-
-            
-            if (result.Success)
-            {
-                return Ok(result.Data);
+                return BadRequest(result);
             }
             else
-            {
-                return BadRequest(result.Message);
-            }
+                return Ok(result);
         }
 
-        [HttpPut]
-        [Route("UpdateFactura")]
-        public IActionResult UpdateFactura([FromBody] FacturaUpdateDto facturaUpdateDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
+        [HttpPost("UpdateFactura")]
+        public IActionResult Put(FacturaUpdateDto facturaUpdateDto)
+        {
             var result = this.facturaService.updateFactura(facturaUpdateDto);
-            if (result.Success)
+            if (result.Sucess)
             {
-                return Ok(result.Data);
+                return BadRequest(result);
             }
             else
-            {
-                return BadRequest(result.Message);
-            }
+                return Ok(result);
         }
 
-        [HttpDelete]
-        [Route("RemoveFactura")]
-        public IActionResult RemoveFactura([FromBody] FacturaRemoveDto facturaRemoveDto)
+        [HttpPost("RemoveFactura")]
+        public IActionResult Delete(FacturaRemoveDto facturaRemoveDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var result = this.facturaService.removeFactura(facturaRemoveDto);
-            if (result.Success)
+            if (result.Sucess)
             {
-                return Ok(result.Data);
+                return BadRequest(result);
             }
             else
-            {
-                return BadRequest(result.Message);
-            }
+                return Ok(result);
         }
     }
+
+
+    
 }
+
+
