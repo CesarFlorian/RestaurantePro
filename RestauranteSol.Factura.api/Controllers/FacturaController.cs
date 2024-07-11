@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestauranteMaMonolitica.Web.BL.Interfaces;
-using RestaurantePro.Factura.Domain.Interface;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using RestaurantePro.Factura.Application.Dtos;
+using RestaurantePro.Factura.Application.Interfaces;
 
 namespace RestauranteSol.Factura.api.Controllers
 {
@@ -11,55 +9,105 @@ namespace RestauranteSol.Factura.api.Controllers
     public class FacturaController : ControllerBase
     {
         private readonly IFacturaService facturaService;
+
         public FacturaController(IFacturaService facturaService)
         {
             this.facturaService = facturaService;
         }
-        // GET: api/<FacturaController>
-        [HttpGet]
 
-        
-        public IActionResult Get()
+        [HttpGet]
+        [Route("GetFacturas")]
+        public IActionResult GetFacturas()
         {
             var result = this.facturaService.GetFacturas();
-            if (result.Sucess) 
-            { 
-              return BadRequest(result);
-            }
-            else 
-                return Ok(result);
-            
-        }
-
-        // GET api/<FacturaController>/5
-        [HttpGet("{id}")]
-        public ActionResult Get(int id)
-        {
-            var result = this.facturaService.GetFactura(id);
-            if (result.Sucess)
+            if (result.Success)
             {
-                return BadRequest(result);
+                return Ok(result.Data);
             }
             else
-                return Ok(result);
+            {
+                return NotFound(result.Message);
+            }
         }
 
-        // POST api/<FacturaController>
-        [HttpPost("Save Course")]
-        public void Post([FromBody] Factura.Application.Dtos.CourseDtoSave)
+        [HttpGet]
+        [Route("GetFacturaById/{id}")]
+        public IActionResult GetFacturaById(int id)
         {
+            var result = this.facturaService.GetFactura(id);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                return NotFound(result.Message);
+            }
         }
 
-        // PUT api/<FacturaController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        
+        [HttpPost("SaveFactura")]
+       
+        public IActionResult Post([FromBody] FacturaSaveDto facturaSaveDto)
         {
+           
+        
+            var result = this.facturaService.saveFactura(facturaSaveDto);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
         }
 
-        // DELETE api/<FacturaController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        [Route("UpdateFactura")]
+        public IActionResult UpdateFactura([FromBody] FacturaUpdateDto facturaUpdateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = this.facturaService.updateFactura(facturaUpdateDto);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("RemoveFactura")]
+        public IActionResult RemoveFactura([FromBody] FacturaRemoveDto facturaRemoveDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = this.facturaService.removeFactura(facturaRemoveDto);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
         }
     }
 }

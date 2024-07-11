@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.Pers
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{CE30912A-2E7F-4335-B55A-62A0FC1AC3C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.Factura.IOC", "RestaurantePro.Factura.IOC\RestaurantePro.Factura.IOC.csproj", "{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.IOC", "RestaurantePro.Factura.IOC\RestaurantePro.Factura.IOC.csproj", "{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

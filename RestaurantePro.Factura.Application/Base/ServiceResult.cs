@@ -11,13 +11,12 @@ namespace RestaurantePro.Factura.Application.Base
 
         public ServiceResult()
         {
-            this.Sucess = true;
+            this.Success = true;
         }
-        public bool Sucess { get; set; }
+        public bool Success { get; set; }
         public string? Message { get; set; }
         public dynamic? Data { get; set; }
-
-
+        public bool Sucess { get; internal set; }
     }
 }
   

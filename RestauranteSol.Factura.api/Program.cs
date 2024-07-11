@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestaurantePro.Factura.Persistance.Context;
 using RestaurantePro.Factura.IOC.Dependencies;
-
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<RestauranteContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("RestauranteContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RestauranteContext")));
 
 // Agregar las dependencias del Modulo de Factura
 builder.Services.AddFacturaDependency();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +27,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Set culture to en-US
+
+
 
 app.UseAuthorization();
 

@@ -1,7 +1,7 @@
 ﻿using RestaurantePro.Factura.Application.Base;
 using RestaurantePro.Factura.Application.Dtos;
 
-namespace RestauranteMaMonolitica.Web.BL.Interfaces
+namespace RestaurantePro.Factura.Application.Interfaces
 {
     public interface IFacturaService
     {

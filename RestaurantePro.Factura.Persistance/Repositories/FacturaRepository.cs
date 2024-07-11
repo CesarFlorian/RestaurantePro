@@ -1,9 +1,11 @@
-﻿using RestauranteMaMonolitica.Web.Data.Helpers;
+﻿
+using RestauranteMaMonolitica.Web.Data.Models;
 using RestaurantePro.Factura.Domain.Entities;
 using RestaurantePro.Factura.Domain.Interface;
 using RestaurantePro.Factura.Persistance.Context;
 using RestauranteSol.Common.Data.Repository;
 using System.Linq.Expressions;
+using System.Numerics;
 
 namespace RestaurantePro.Factura.Persistance.Repositories
 {
@@ -18,37 +20,42 @@ namespace RestaurantePro.Factura.Persistance.Repositories
 
         public bool Exist(Expression<Func<Domain.Entities.Factura, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _context.Factura.Any(filter);
         }
 
         public List<Domain.Entities.Factura> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Factura.ToList();
         }
 
         public Domain.Entities.Factura GetEntityById(int Id)
         {
-            throw new NotImplementedException();
+            return _context.Factura.Find(Id);
         }
 
         public List<Domain.Entities.Factura> GetFactura(int id)
         {
-            throw new NotImplementedException();
+            return _context.Factura.Where(f => f.id == id).ToList();
         }
 
         public void Remove(Domain.Entities.Factura entity)
         {
-            throw new NotImplementedException();
+            _context.Factura.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Save(Domain.Entities.Factura entity)
         {
-            throw new NotImplementedException();
+         
+            _context.Add(entity);
+            _context.SaveChanges();
+
         }
 
         public void Update(Domain.Entities.Factura entity)
         {
-            throw new NotImplementedException();
+            _context.Factura.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

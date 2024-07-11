@@ -1,11 +1,11 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
-using RestauranteMaMonolitica.Web.BL.Interfaces;
 
-using RestauranteMaMonolitica.Web.Data.Helpers;
+
 using RestaurantePro.Factura.Application.Base;
 using RestaurantePro.Factura.Application.Dtos;
+using RestaurantePro.Factura.Application.Interfaces;
 using RestaurantePro.Factura.Domain.Interface;
 using System.Reflection.Metadata.Ecma335;
 namespace RestauranteMaMonolitica.Web.BL.Services
@@ -24,7 +24,9 @@ namespace RestauranteMaMonolitica.Web.BL.Services
 
         public ServiceResult GetFacturas() 
         { 
-           ServiceResult result = new ServiceResult();
+         
+
+            ServiceResult result = new ServiceResult();
 
             try
             {
@@ -32,111 +34,136 @@ namespace RestauranteMaMonolitica.Web.BL.Services
             }
             catch (Exception ex)
             {
-
-                result.Sucess = false;
-                result.Message = "Ocurrio un error obteniendo las Facturas";
-                this.logger.LogError(result.Message, ex.ToString());    
-            }
-
-            return result;
-            
-        }
-
-           public ServiceResult GetFactura(int id) 
-           {
-                ServiceResult result = new ServiceResult();
-
-            try
-            {
-                result.Data = FacturaRepository.GetEntityById(id);
-
-            }
-            catch (Exception ex)
-            {
-
-                result.Sucess = false;
-                result.Message = "Ocurrio un error obteniendo las Facturas";
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo las Facturas";
                 this.logger.LogError(result.Message, ex.ToString());
             }
 
             return result;
-        
+
+
+        }
+
+        public ServiceResult GetFactura(int id) 
+        {
+
+            ServiceResult result = new ServiceResult();
+
+            try
+            {
+                result.Data = FacturaRepository.GetEntityById(id);
             }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = "Ocurrió un error obteniendo la Factura";
+                this.logger.LogError(result.Message, ex.ToString());
+            }
+
+            return result;
+
+        }
 
 
         public ServiceResult updateFactura(FacturaUpdateDto facturaUpdate) 
         {
-            
 
-            erviceResult result = new ServiceResult();
+
+            ServiceResult result = new ServiceResult();
 
             try
             {
-                if (FacturaHelper.IsNullOrWhitespace(facturaUpdate, result, "La Factura no puede ser nulo."))
+                if (facturaUpdate == null)
+                {
+                    result.Success = false;
+                    result.Message = "La Factura no puede ser nula.";
                     return result;
+                }
 
-                if (FacturaHelper.IsInvalidDecimalLength(facturaUpdate.Total, result, "La longitud del numero debe ser de 10.", 10, 2))
-                    return result;
 
-                this.FacturaRepository.Update();
             }
             catch (Exception ex)
             {
-                result.Sucess = false;
+                result.Success = false;
                 result.Message = "Ocurrio un error Actualizando los Datos.";
                 this.logger.LogError(result.Message, ex.ToString());
             }
 
             return result;
-           
+
         }
 
-       public  ServiceResult removeFactura(FacturaRemoveDto facturaRemove) 
-        { 
-            ServiceResult result= new ServiceResult();
+       public ServiceResult removeFactura(FacturaRemoveDto facturaRemove) 
+        {
+            ServiceResult result = new ServiceResult();
 
             try
             {
-                if (facturaRemove is null)
+                if (facturaRemove == null)
                 {
-                    result.Sucess = false;
-                    result.Message = "La Factura no puede ser nulo.";
+                    result.Success = false;
+                    result.Message = "La Factura no puede ser nula.";
                     return result;
                 }
-                this.FacturaRepository.Remove();
+
+                
             }
             catch (Exception ex)
             {
-                result.Sucess = false;
-                result.Message = ("Ocurrio un error removiendo los datos.");
+                result.Success = false;
+                result.Message = "Ocurrió un error eliminando los datos de la Factura";
                 this.logger.LogError(result.Message, ex.ToString());
-
             }
+
             return result;
         }
 
        public ServiceResult saveFactura(FacturaSaveDto facturaSave) 
         {
             ServiceResult result = new ServiceResult();
-
+           
             try
             {
-                if (FacturaHelper.IsNullOrWhitespace(facturaSave, result, "La Factura no puede ser nulo."))
-                    return result;
+              if(facturaSave == null) 
+                {
+                    result.Success = false;
+                    result.Message = $"El objeto{nameof(facturaSave)} es requerido.";
+                    return result;  
+              }
 
-                if (FacturaHelper.IsInvalidDecimalLength(facturaSave.Total, result, "La longitud del numero debe ser de 10.", 10, 2))
-                    return result;
+                RestaurantePro.Factura.Domain.Entities.Factura factura = new RestaurantePro.Factura.Domain.Entities.Factura()
+                {
+                    Total = facturaSave.Total,
+                    Fecha = facturaSave.Fecha,
+                    creation_date = facturaSave.ChangeDate,
+                    creation_user = facturaSave.ChangeUser
 
-                this.FacturaRepository.Save(facturaSave);
+                };
+
+                this.FacturaRepository.Save(factura);
+
+               
+
             }
+
+
             catch (Exception ex)
             {
-                result.Sucess = false;
-                result.Message = "Ocurrio un error Actualizando los Datos.";
-                this.logger.LogError(result.Message, ex.ToString());
+                result.Success = false;
+                result.Message = "Ocurrió un error guardando los datos de la Factura";
+                
             }
 
-            return result; 
+
+            return result;
+
+
+
+
+
+
+
+
         }
 
        

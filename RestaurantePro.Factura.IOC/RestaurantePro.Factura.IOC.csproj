@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RestaurantePro.Factura.Application\RestaurantePro.Factura.Application.csproj" />
+    <ProjectReference Include="..\RestaurantePro.Factura.Domain\RestaurantePro.Factura.Domain.csproj" />
     <ProjectReference Include="..\RestaurantePro.Factura.Persistance\RestaurantePro.Factura.Persistance.csproj" />
   </ItemGroup>
 
