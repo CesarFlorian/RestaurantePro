@@ -1,9 +1,14 @@
 ﻿
 
 
-using RestauranteMaMonolitica.Web.Data.Entities;
 using RestauranteMaMonolitica.Web.Data.Models;
+using RestaurantePro.Factura.Application.Base;
+using RestaurantePro.Factura.Domain.Entities;
 using RestaurantePro.Factura.Persistance.Context;
+using RestaurantePro.Factura.Persistance.Exceptions;
+
+
+
 
 namespace RestauranteMaMonolitica.Web.Data.Helpers
 {
@@ -17,7 +22,7 @@ namespace RestauranteMaMonolitica.Web.Data.Helpers
 
             if (factura == null)
             {
-                throw new FacturaDbException($"No se encontro el departamento con el id {IdFactura}");
+                throw new FacturaDbExceptions($"No se encontro el departamento con el id {IdFactura}");
             }
 
             return factura;
@@ -29,10 +34,10 @@ namespace RestauranteMaMonolitica.Web.Data.Helpers
             return new FacturaGetModel
             {
                 
-                IdFactura = factura.IdFactura,
+                
                 Fecha = factura.Fecha,
                 Total = factura.Total,
-                creation_date = factura.creation_date
+                
             };
 
         }
@@ -46,7 +51,7 @@ namespace RestauranteMaMonolitica.Web.Data.Helpers
             factura.creation_user = saveModel.ChangeUser;
         }
 
-        public static bool IsNullOrWhitespace(object obj, FacturaServiceResult result, string errorMessage)
+        public static bool IsNullOrWhitespace(object obj, ServiceResult result, string errorMessage)
         {
             if (obj == null || string.IsNullOrWhiteSpace(obj.ToString()))
             {
@@ -57,7 +62,7 @@ namespace RestauranteMaMonolitica.Web.Data.Helpers
             return false;
         }
 
-        public static bool IsInvalidDecimalLength(decimal value, FacturaServiceResult result, string errorMessage, int maxIntegerDigits, int maxDecimalDigits)
+        public static bool IsInvalidDecimalLength(decimal value, ServiceResult result, string errorMessage, int maxIntegerDigits, int maxDecimalDigits)
         {
             string[] parts = value.ToString().Split('.');
             int integerDigits = parts[0].Length;

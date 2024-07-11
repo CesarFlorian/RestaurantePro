@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestauranteSol.Common.Data.Base
 {
-    public abstract class AuditEntity<TType> : BaseEntity<TType>    
+    public abstract class AuditEntity<TType> : BaseEntity<TType>
      {  
         public int creation_user { get; set; }
 

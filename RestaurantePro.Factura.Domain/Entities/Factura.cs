@@ -13,8 +13,11 @@ namespace RestaurantePro.Factura.Domain.Entities
         [Column("IdFactura")]
         public override int id { get; set; }
 
+        public decimal Total { get; set; }
+        public DateOnly Fecha { get; set; }
 
-        
-        
+
+
+
     }
 }

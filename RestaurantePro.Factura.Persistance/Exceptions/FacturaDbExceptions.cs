@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace RestaurantePro.Factura.Persistance.Exceptions
 {
-    public class FacturaDbExceptions
+    public class FacturaDbExceptions : Exception
     {
+        public FacturaDbExceptions(string message) : base(message)
+        {
+
+        }
     }
 }

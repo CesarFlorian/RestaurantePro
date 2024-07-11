@@ -28,17 +28,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4C8D00DA-1DE0-493B-916D-F4813802069C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{8F2CC70C-4D88-43F1-8B00-DD3A8BCAE0D2}"
-	ProjectSection(SolutionItems) = preProject
-		RestaurantePro.Factura.Domain\Interface\IFacturaRepository.cs = RestaurantePro.Factura.Domain\Interface\IFacturaRepository.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestauranteSol.Factura.api", "RestauranteSol.Factura.api\RestauranteSol.Factura.api.csproj", "{B9FD605B-BE30-4668-9F44-1FBED47A8D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.Factura.Application", "RestaurantePro.Factura.Application\RestaurantePro.Factura.Application.csproj", "{5D751838-6EAB-41D4-B92B-787874CA8109}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.Application", "RestaurantePro.Factura.Application\RestaurantePro.Factura.Application.csproj", "{5D751838-6EAB-41D4-B92B-787874CA8109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.Factura.Domain", "RestaurantePro.Factura.Domain\RestaurantePro.Factura.Domain.csproj", "{4E7D8991-9BD8-4082-A4F7-5F82E52B604D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.Domain", "RestaurantePro.Factura.Domain\RestaurantePro.Factura.Domain.csproj", "{4E7D8991-9BD8-4082-A4F7-5F82E52B604D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.Factura.Persistance", "RestaurantePro.Factura.Persistance\RestaurantePro.Factura.Persistance.csproj", "{88474AC0-7D86-4FE3-96B2-99DF6BED13ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.Persistance", "RestaurantePro.Factura.Persistance\RestaurantePro.Factura.Persistance.csproj", "{88474AC0-7D86-4FE3-96B2-99DF6BED13ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{CE30912A-2E7F-4335-B55A-62A0FC1AC3C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.Factura.IOC", "RestaurantePro.Factura.IOC\RestaurantePro.Factura.IOC.csproj", "{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +71,10 @@ Global
 		{88474AC0-7D86-4FE3-96B2-99DF6BED13ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88474AC0-7D86-4FE3-96B2-99DF6BED13ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88474AC0-7D86-4FE3-96B2-99DF6BED13ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +96,8 @@ Global
 		{5D751838-6EAB-41D4-B92B-787874CA8109} = {6B262F4F-3367-4D3E-9C6D-6F7F4ADF9DA5}
 		{4E7D8991-9BD8-4082-A4F7-5F82E52B604D} = {4C8D00DA-1DE0-493B-916D-F4813802069C}
 		{88474AC0-7D86-4FE3-96B2-99DF6BED13ED} = {8F2CC70C-4D88-43F1-8B00-DD3A8BCAE0D2}
+		{CE30912A-2E7F-4335-B55A-62A0FC1AC3C5} = {8A0D98DF-4515-4293-ADE3-3DEEF7836EB3}
+		{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050} = {CE30912A-2E7F-4335-B55A-62A0FC1AC3C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D75FD50-CC9A-49E0-8ADA-05B58445E8E3}

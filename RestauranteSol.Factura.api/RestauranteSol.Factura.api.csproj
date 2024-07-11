@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantePro.Factura.Domain\RestaurantePro.Factura.Domain.csproj" />
+    <ProjectReference Include="..\RestaurantePro.Factura.IOC\RestaurantePro.Factura.IOC.csproj" />
+  </ItemGroup>
+
 </Project>

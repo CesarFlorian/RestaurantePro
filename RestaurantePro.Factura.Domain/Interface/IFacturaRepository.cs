@@ -9,6 +9,8 @@ namespace RestaurantePro.Factura.Domain.Interface
 {
     public interface IFacturaRepository : IBaseRepository<Factura.Domain.Entities.Factura,int>
     {
+
+        List<Factura.Domain.Entities.Factura> GetFactura(int id);
        
     }
 }
