@@ -1,0 +1,78 @@
+﻿@model RestaurantePro.WebUi.Models.FacturaGetModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Factura Details</h1>
+
+<div>
+    <h4>FacturaGetModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.total)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.total)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.creation_user)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.creation_user)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.creation_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.creation_date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.modify_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.modify_date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.modify_user)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.modify_user)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.delete_user)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.delete_user)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.delete_date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.delete_date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.deleted)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.deleted)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id  }) |
+    <a asp-action="Index">Back to List</a>
+</div>

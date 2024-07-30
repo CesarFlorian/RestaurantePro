@@ -38,7 +38,6 @@ namespace RestaurantePro.WebUi.Controllers
                         }
                         catch (JsonException ex)
                         {
-                           
                             ViewBag.ErrorMessage = $"Error de deserialización JSON: {ex.Message}";
                             return View();
                         }
@@ -80,7 +79,6 @@ namespace RestaurantePro.WebUi.Controllers
                         }
                         catch (JsonException ex)
                         {
-                            // Manejo de error de deserialización
                             ViewBag.ErrorMessage = $"Error de deserialización JSON: {ex.Message}";
                             return View();
                         }
@@ -103,96 +101,92 @@ namespace RestaurantePro.WebUi.Controllers
         }
 
         // GET: FacturaController/Create
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
-            try
-            {
-                var facturaGetResult = new FacturaListGetResult();
-
-                using (var httpClient = new HttpClient(_httpClientHandler))
-                {
-                    var url = "http://localhost:5049/api/Factura/GetFactura";
-
-                    using (var response = await httpClient.GetAsync(url))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var apiResponse = await response.Content.ReadAsStringAsync();
-                            try
-                            {
-                                facturaGetResult = JsonSerializer.Deserialize<FacturaListGetResult>(apiResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                            }
-                            catch (JsonException ex)
-                            {
-                                // Manejo de error de deserialización
-                                ViewBag.ErrorMessage = $"Error de deserialización JSON: {ex.Message}";
-                                return View();
-                            }
-
-                            if (!facturaGetResult.success)
-                            {
-                                ViewBag.ErrorMessage = facturaGetResult.message;
-                                return View();
-                            }
-                        }
-                        else
-                        {
-                            ViewBag.ErrorMessage = "Error al obtener los datos de la factura.";
-                            return View();
-                        }
-                    }
-                }
-
-                return View(facturaGetResult.result ?? new List<FacturaGetModel>());
-            }
-            catch (Exception ex)
-            {
-                // Manejo de excepción general
-                ViewBag.ErrorMessage = $"Error al crear la factura: {ex.Message}";
-                return View();
-            }
+            return View();
         }
 
-        // POST: FacturaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FacturaSaveModel facturaSave)
+        public async Task<ActionResult> Create(FacturaSaveModel facturaSave)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(facturaSave); // Devuelve la vista con errores de validación
+            }
+
             try
             {
-                // Lógica para guardar la nueva factura
-                return RedirectToAction(nameof(Index));
+                using (var httpClient = new HttpClient(_httpClientHandler))
+                {
+                    var url = "http://localhost:5049/api/Factura/SaveFactura";
+                    var jsonContent = JsonSerializer.Serialize(facturaSave);
+                    var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                    var response = await httpClient.PostAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Redirige a la lista después de una creación exitosa
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Error al guardar la factura.";
+                        return View(facturaSave);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                // Manejo de excepción general
-                ViewBag.ErrorMessage = $"Error al guardar la factura: {ex.Message}";
-                return View();
+                ViewBag.ErrorMessage = $"Error al crear la factura: {ex.Message}";
+                return View(facturaSave);
             }
         }
 
         // GET: FacturaController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            // Lógica para mostrar la vista de edición
-            return View();
-        }
+       
 
         // POST: FacturaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, FacturaSaveModel facturaSave)
+        public async Task<ActionResult> Edit(int id, FacturaUpdateModel facturaUpdate)
         {
+            if (id != facturaUpdate.id)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(facturaUpdate);
+            }
+
             try
             {
-                // Lógica para actualizar la factura
-                return RedirectToAction(nameof(Index));
+                using (var httpClient = new HttpClient(_httpClientHandler))
+                {
+                    var url = $"http://localhost:5049/api/Factura/UpdateFactura?id={id}";
+                    var jsonContent = JsonSerializer.Serialize(facturaUpdate);
+                    var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                    var response = await httpClient.PutAsync(url, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Error al actualizar la factura.";
+                        return View(facturaUpdate);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                // Manejo de excepción general
                 ViewBag.ErrorMessage = $"Error al actualizar la factura: {ex.Message}";
-                return View();
+                return View(facturaUpdate);
             }
         }
 
@@ -201,24 +195,6 @@ namespace RestaurantePro.WebUi.Controllers
         {
             // Lógica para mostrar la vista de eliminación
             return View();
-        }
-
-        // POST: FacturaController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // Lógica para eliminar la factura
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                // Manejo de excepción general
-                ViewBag.ErrorMessage = $"Error al eliminar la factura: {ex.Message}";
-                return View();
-            }
         }
     }
 }
