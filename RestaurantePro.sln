@@ -41,7 +41,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{CE30912A-2E7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.Factura.IOC", "RestaurantePro.Factura.IOC\RestaurantePro.Factura.IOC.csproj", "{1B4DFEB1-B3E5-467D-A2B3-2EF17FCE5050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantePro.WebUi", "RestaurantePro.WebUi\RestaurantePro.WebUi.csproj", "{04EE8463-0408-4E49-87E9-F5DE9F544365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantePro.WebUi", "RestaurantePro.WebUi\RestaurantePro.WebUi.csproj", "{04EE8463-0408-4E49-87E9-F5DE9F544365}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
